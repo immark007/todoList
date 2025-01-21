@@ -8,7 +8,7 @@ import java.util.UUID;
 public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id; // Alterado de Long para UUID
+    private UUID id;
 
     private String title;
     private String description;
