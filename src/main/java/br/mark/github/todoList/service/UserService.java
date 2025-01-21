@@ -41,8 +41,7 @@ public class UserService {
 
     @Transactional
     public void updateUserById(UUID userId, UpdateUserDto updateUserDto) {
-        var user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("Usuário com ID " + userId + " não encontrado."));
+        var user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("Usuário com ID " + userId + " não encontrado."));
 
         Optional.ofNullable(updateUserDto.username()).ifPresent(user::setUsername);
         Optional.ofNullable(updateUserDto.password()).ifPresent(user::setPassword);
