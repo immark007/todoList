@@ -4,6 +4,8 @@ package br.mark.github.todoList.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.UUID;
+
 @Entity
 @Table(name = "table_users")
 @Getter
@@ -14,7 +16,7 @@ import lombok.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private Long id;
+    private UUID id;
     private String username;
     private String password;
 }
