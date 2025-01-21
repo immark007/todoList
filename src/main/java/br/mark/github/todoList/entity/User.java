@@ -2,7 +2,6 @@ package br.mark.github.todoList.entity;
 
 
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.util.UUID;
 

@@ -6,6 +6,7 @@ import br.mark.github.todoList.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -17,5 +18,9 @@ public class UserService {
         var entity = new User(createUserDto.username(),createUserDto.email(),createUserDto.password());
         var userSaved = userRepository.save(entity);
         return userSaved.getId();
+    }
+
+    public Optional<User> getUserById(String id) {
+        return userRepository.findById(UUID.fromString(id));
     }
 }

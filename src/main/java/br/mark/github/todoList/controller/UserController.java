@@ -5,10 +5,7 @@ import br.mark.github.todoList.entity.User;
 import br.mark.github.todoList.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 
@@ -22,6 +19,18 @@ public class UserController {
     public ResponseEntity<User> addUser(@RequestBody CreateUserDto createUserDto) {
         var userId = userService.createUser(createUserDto);
 
-        return ResponseEntity.created(URI.create("/users" + userId.toString())).build();
+        return ResponseEntity.created(URI.create("/users/" + userId.toString())).build();
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<User> getUser(@PathVariable("userId") String userId) {
+        var user = userService.getUserById(userId);
+        if(user.isPresent()){
+            return ResponseEntity.ok(user.get());
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
 }
