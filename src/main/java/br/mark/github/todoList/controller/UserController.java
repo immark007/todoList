@@ -5,6 +5,8 @@ import br.mark.github.todoList.dto.UpdateUserDto;
 import br.mark.github.todoList.entity.User;
 import br.mark.github.todoList.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -37,9 +39,9 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getUsers() {
-        var user = userService.listUser();
-        return ResponseEntity.ok(user);
+    public ResponseEntity<Page<User>> getUsers(Pageable pageable) {
+        var usersPage = userService.listUser(pageable);
+        return ResponseEntity.ok(usersPage);
     }
 
     @PutMapping("/{userId}")
