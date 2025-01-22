@@ -8,16 +8,15 @@ import java.util.UUID;
 public class Todo {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id; // Alterado de Long para UUID
+    private UUID id;
 
     private String title;
     private String description;
 
-    @ManyToOne // Corrigido para @ManyToOne
-    @JoinColumn(name = "user_id") // Define a chave estrangeira
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    // Construtores
     public Todo() {}
 
     public Todo(String title, String description, User user) {
@@ -26,7 +25,6 @@ public class Todo {
         this.user = user;
     }
 
-    // Getters e Setters
     public UUID getId() {
         return id;
     }

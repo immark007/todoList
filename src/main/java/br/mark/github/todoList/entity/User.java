@@ -21,7 +21,6 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Todo> todoList;
 
-    // Construtores
     public User() {}
 
     public User(String username, String email, String password) {

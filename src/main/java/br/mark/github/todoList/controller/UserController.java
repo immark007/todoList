@@ -6,6 +6,7 @@ import br.mark.github.todoList.entity.User;
 import br.mark.github.todoList.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -19,7 +20,7 @@ public class UserController {
     private UserService userService;
 
     @PostMapping
-    public ResponseEntity<User> addUser(@RequestBody CreateUserDto createUserDto) {
+    public ResponseEntity<User> addUser(@RequestBody @Validated CreateUserDto createUserDto) {
         var userId = userService.createUser(createUserDto);
 
         return ResponseEntity.created(URI.create("/users/" + userId.toString())).build();
