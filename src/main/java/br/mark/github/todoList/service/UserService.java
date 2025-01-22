@@ -6,6 +6,7 @@ import br.mark.github.todoList.entity.User;
 import br.mark.github.todoList.repository.UserRepository;
 import br.mark.github.todoList.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,7 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    @Cacheable(value = "listaUsuarios")
     public Page<User> listUser(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
