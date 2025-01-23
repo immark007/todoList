@@ -1,0 +1,16 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 50px;
+}
+
+form {
+    display: inline-block;
+    margin-top: 20px;
+    text-align: left;
+}
+
+form div {
+    margin-bottom: 15px;
+}
