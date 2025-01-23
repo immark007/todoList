@@ -20,7 +20,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<User> addUser(@RequestBody @Validated CreateUserDto createUserDto) {
         var userId = userService.createUser(createUserDto);
 
