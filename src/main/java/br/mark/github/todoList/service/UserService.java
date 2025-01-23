@@ -6,6 +6,8 @@ import br.mark.github.todoList.entity.User;
 import br.mark.github.todoList.repository.UserRepository;
 import br.mark.github.todoList.exception.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ public class UserService {
     private UserRepository userRepository;
 
     @Transactional
+    @CacheEvict(value = "listaUsuarios", allEntries = true)
     public UUID createUser(CreateUserDto createUserDto) {
         if (userRepository.findByEmail(createUserDto.email()).isPresent()) {
             throw new IllegalArgumentException("Email já está em uso!");
@@ -36,12 +39,14 @@ public class UserService {
         return userRepository.findById(id);
     }
 
+    @Cacheable(value = "listaUsuarios")
     public Page<User> listUser(Pageable pageable) {
         return userRepository.findAll(pageable);
     }
 
 
     @Transactional
+    @CacheEvict(value = "listaUsuarios", allEntries = true)
     public void updateUserById(UUID userId, UpdateUserDto updateUserDto) {
         var user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("Usuário com ID " + userId + " não encontrado."));
 
@@ -52,6 +57,7 @@ public class UserService {
     }
 
     @Transactional
+    @CacheEvict(value = "listaUsuarios", allEntries = true)
     public String deleteUserById(UUID userId) {
         if (!userRepository.existsById(userId)) {
             throw new UserNotFoundException("Usuário com ID " + userId + " não encontrado.");
